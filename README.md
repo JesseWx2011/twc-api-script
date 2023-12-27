@@ -2,8 +2,11 @@
 
 <h3>Preview</h3>
  <img src="preview.png"><img>
+ Legend: 
+ ❌ = Not Finished 
+ 🟠 = Nearly There
+ ✅ = Complete
 For Small TWC Script:
-  Tasks:
   <p>Full Design: ❌</p>
   <p>Working Forecasts: ✅</p>   
   <p>Working Search Query: ❌</p>
@@ -14,3 +17,4 @@ For Large TWC Script:
   <p>Working Conditons: ✅</p>   
   <p>Working Search Query: ❌</p>
   <p>Working Icons: ❌</p>
+  <p>Working Time Function: 🟠</p>
