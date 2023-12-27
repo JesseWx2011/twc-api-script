@@ -8,6 +8,7 @@ For Small TWC Script:
   <p>Working Forecasts: ✅</p>   
   <p>Working Search Query: ❌</p>
   <p>Working Icons: ❌</p>
+  <img src="preview2.png"
 For Large TWC Script:
   <p>Full Design: 🟠</p>
   <p>Working Conditons: ✅</p>   
