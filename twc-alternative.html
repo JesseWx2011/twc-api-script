@@ -1,7 +1,8 @@
-  <!-- JavaScript Portion -->
+
+  <!-- JavaScript Portion for the Current Conditions -->
   <script>
     getWx();
-     const api_url = 'https://api.weather.com/v1/location/99501:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+     const api_url = 'https://api.weather.com/v1/location/20002:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
     async function getWx() {   
         const response = await fetch(api_url);
         const data = await response.json();
@@ -44,15 +45,33 @@
             <img id="wxicon" class="wxicon" src="https://www.ibm.com/docs/en/SSRQLT_suite/images/Not_available.png"></img>
             <div class="temp" id="tempF">N/A</div><div class="tempu">°F</div>
             <div class="wxobservation" id="weather">N/A</div>
-            <div class="windintro">Wind is blowing to the:</div>
-            <div class="winddir" id="winddir">N/A</div>
-            <div class="windintro2">at</div>
-            <div class="windspd" id="windspd">N/A</div>
-            <div class="windintro2">mph</div>
+            <div class="windintro">Wind is blowing to the: <div class="winddir" id="winddir">N/A</div><div class="windintro2">at</div><div class="windspd" id="windspd">N/A</div><div class="windintro2">mph</div>
+          </div>
         </div>
+        <!-- The JavaScript Portion for the 36 Hour Forecast: -->
+          <script>
+            getForecast();
+            const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=20746:US&units=e&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+            async function getForecast() {
+              const response = await fetch(forecast_url);
+              const forecast = await response.json();
+              const {daypartName, temperatureMax} = forecast;
+              console.log(daypartName,1);
+              console.log(temperatureMax);
+
+              document.getElementById('day1name').textContent = daypartName;
+              document.getElementById('day2name').textContent = daypartName,1;
+              document.getElementById('day3name').textContent = daypartName,2;
+              document.getElementById('day1temp').textContent = temperatureMax;
+              document.getElementById('day2temp').textContent = temperatureMax,1;
+              document.getElementById('day3temp').textContent = temperatureMax,2;
+            }
+            getForecast();
+          </script>
     </div>
-        <div class="page-container">
-            woot
+        <div class="information-container">
+            <h3 id="day1name"></h3>
+            <h3 id="day1temp"></h3>
     </div>  
   </body>
  </html>
@@ -62,34 +81,43 @@
     .observation {
         background-color: #2196F3;
         width: 100%;
-        height: 100%;
+        height: fit-content;
     }
     .side-bar {
         background-color: gray;
-        width: 283px;
+        width: 100%;
         height: 100%;
     }
     .temp {
      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
      font-size: 52px;
      padding-top: 99px;
-     padding-left: 94px;
+     padding-left: 650px;
     }
     .tempu {
      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
      font-size: 19px;
      padding-bottom: 55px;
-     padding-left: 155px;
+     padding-left: 694px;
     }
     .wxobservation {
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        padding-left: 99px;
+        padding-left: 600px;
         padding-bottom: 25px;
+        font-size: 50px;
     }
     .wxicon {
-        width: 50%;
-        padding-left: 50px;
+        width: 10%;
+        padding-left: 650px;
         padding-top: 30px;
+    }
+    .citymameintro {
+      font-size: 25px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .cityname {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-size: 36px;
     }
     .windintro {
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, bold;
@@ -109,6 +137,11 @@
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         padding-left: 180px;
         font-size: 25px;
+    }
+    .information-container {
+     background-color: aqua;
+     width: 100%;
+     height: 1000px;
     }
     .topnav a:hover {
   background-color: #ddd;
