@@ -13,6 +13,7 @@ For Small TWC Script:
   <p>Working Search Query: ❌</p>
   <p>Working Icons: ❌</p>
   <img src="preview2.png"></img>
+  <p>Note that this photo was taken during the prototype version of this project.</p>
 For Large TWC Script:
   <p>Full Design: 🟠</p>
   <p>Working Conditons: ✅</p>   
