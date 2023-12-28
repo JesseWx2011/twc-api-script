@@ -1,7 +1,7 @@
   <!-- JavaScript Portion for the Current Conditions -->
   <script>
     getWx();
-     const api_url = 'https://api.weather.com/v1/location/30813:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+     const api_url = 'https://api.weather.com/v1/location/76904:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
     async function getWx() {   
         const response = await fetch(api_url);
         const data = await response.json();
@@ -27,6 +27,30 @@
   return "https://www.ibm.com/docs/en/SSRQLT_suite/images/Cloudy.png";
 }
 </script>
+<script>
+ // Start
+ const icon_url = ('https://api.weather.com/v1/location/20746:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525')
+ console.log(observation, wx_icon)
+ function getIcon(wxicon) {
+        if (wx_icon === 0)
+    return "https://www.ibm.com/docs/en/SSRQLT_suite/images/Tornado.png";
+  } if (wx_icon === 1,2)  {
+    return "https://www.ibm.com/docs/en/SSRQLT_suite/images/Tornado.png";
+    if (wx_icon === 4)  {
+    return Image = "https://www.ibm.com/docs/en/SSRQLT_suite/images/Thunderstorms.png";
+    } if (wx_icon === 5)
+    return "https://www.ibm.com/docs/en/SSRQLT_suite/images/Rain_snow.png";
+  } if (wx_icon === 6) {
+    return "https://www.ibm.com/docs/en/SSRQLT_suite/images/Rain_sleet.png" 
+    } else {
+  return "https://www.ibm.com/docs/en/SSRQLT_suite/images/Not_available.png";
+}
+wxicon.innerHTML = `
+<div class="weather-icon">
+              <img id="wxicon" src="${wxiconSrc}" class="wxicon" /></img>
+  </div>  
+  `;
+</script>
 <!-- HTML Portion -->
 <!DOCTYPE html>
 <div class="observation">
@@ -41,10 +65,12 @@
             </form>    
         <div class="citynameintro" >Weather For: </div>
             <div class="cityname" id="city">City Unavaliable</div>
+            <div class="weather-icon">
             <img id="wxicon" class="wxicon" src="https://www.ibm.com/docs/en/SSRQLT_suite/images/Not_available.png"></img>
+          </div>
             <div class="temp" id="tempF">N/A</div><div class="tempu">°F</div>
             <div class="wxobservation" id="weather">N/A</div>
-            <div class="windintro">Wind is blowing to the: <div class="winddir" id="winddir">N/A</div><div class="windintro2">at</div><div class="windspd" id="windspd">N/A</div><div class="windintro2">mph</div>
+            <div class="windintro">The Wind is<div class="winddir" id="winddir">N/A</div><div class="windintro2">at</div><div class="windspd" id="windspd">N/A</div><div class="windintro2">mph</div>
           </div>
         </div>
         <!-- The JavaScript Portion for the 36 Hour Forecast: -->
@@ -63,14 +89,13 @@
             getForecast();
 
 
-
 </script> 
-    </div>
+</div>
         <div class="information-container">
           <p class="updates">Last Update at: <p class="updates">Dec 28 2023 9:13 AM</p></p>
           <h2 class="forecastintro">To go Forecast:</h2>
-            <h3 id="shortterm">Forecast Unavaliable</h3>
-    </div>  
+          <h3 id="shortterm" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;">  </h3>
+    </div> 
   </body>
  </html>
 </div>
@@ -141,6 +166,14 @@
      width: 100%;
      height: 1000px;
     }
+    .forecastintro {
+      font-size: 23px;
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .shortterm {
+      font-size: 17px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
     .updates {
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-size: 14px;
@@ -198,4 +231,3 @@
   }
 }
   </style>
-  <!-- Created December 26th 2023, Modified December 28th 2023. ->
