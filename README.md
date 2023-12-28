@@ -16,6 +16,7 @@ For Small TWC Script:
 For Large TWC Script:
   <p>Full Design: 🟠</p>
   <p>Working Conditons: ✅</p>   
+  <p>Working Forecasts: 🟠</p>
   <p>Working Search Query: ❌</p>
   <p>Working Icons: ❌</p>
   <p>Working Time Function: 🟠</p>
