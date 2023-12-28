@@ -1,8 +1,7 @@
-
   <!-- JavaScript Portion for the Current Conditions -->
   <script>
     getWx();
-     const api_url = 'https://api.weather.com/v1/location/20002:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+     const api_url = 'https://api.weather.com/v1/location/30813:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
     async function getWx() {   
         const response = await fetch(api_url);
         const data = await response.json();
@@ -51,27 +50,26 @@
         <!-- The JavaScript Portion for the 36 Hour Forecast: -->
           <script>
             getForecast();
-            const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=20746:US&units=e&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+            const forecast_url = 'https://api.weather.com/v1/location/30813:4:US/forecast/nowcast.json?language=en-US&units=e&&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
             async function getForecast() {
               const response = await fetch(forecast_url);
-              const forecast = await response.json();
-              const {daypartName, temperatureMax} = forecast;
-              console.log(daypartName,1);
-              console.log(temperatureMax);
+              const forecastshort = await response.json();
+              const {forecast, narrative_512char} = forecastshort;
+              console.log(forecast);
+              console.log(narrative_512char);
 
-              document.getElementById('day1name').textContent = daypartName;
-              document.getElementById('day2name').textContent = daypartName,1;
-              document.getElementById('day3name').textContent = daypartName,2;
-              document.getElementById('day1temp').textContent = temperatureMax;
-              document.getElementById('day2temp').textContent = temperatureMax,1;
-              document.getElementById('day3temp').textContent = temperatureMax,2;
+              document.getElementById('shortterm').textContent = forecast.narrative_512char;
             }
             getForecast();
-          </script>
+
+
+
+</script> 
     </div>
         <div class="information-container">
-            <h3 id="day1name"></h3>
-            <h3 id="day1temp"></h3>
+          <p class="updates">Last Update at: <p class="updates">Dec 28 2023 9:13 AM</p></p>
+          <h2 class="forecastintro">To go Forecast:</h2>
+            <h3 id="shortterm">Forecast Unavaliable</h3>
     </div>  
   </body>
  </html>
@@ -143,6 +141,10 @@
      width: 100%;
      height: 1000px;
     }
+    .updates {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 14px;
+    }
     .topnav a:hover {
   background-color: #ddd;
   color: black;
@@ -194,10 +196,6 @@
   .topnav input[type=text] {
     border: 1px solid #ccc;  
   }
-  .page-container {
-    width: 300px;
-    background-color: blue;
-    padding-left: 500px;
-  }
 }
   </style>
+  <!-- Created December 26th 2023, Modified December 28th 2023. ->
