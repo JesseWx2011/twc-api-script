@@ -1,271 +1,310 @@
 
 <!-- JavaScript Portion for the Current Conditions -->
-  <script>
-    getWx();
-     const api_url = 'https://api.weather.com/v1/location/20002:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
-    async function getWx() {   
-        const response = await fetch(api_url);
-        const data = await response.json();
-        const {observation, obs_name, temp, wx_phrase, wdir_cardinal, wspd, wx_icon} = data;
-        console.log(temp);
-        console.log(wx_phrase);
-        console.log(wdir_cardinal);
-        console.log(wspd);
-        console.log(wx_icon);
+<script>
+  getWx();
+   const api_url = 'https://api.weather.com/v1/location/58503:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+  async function getWx() {   
+      const response = await fetch(api_url);
+      const data = await response.json();
+      const {observation, obs_name, temp, wx_phrase, wdir_cardinal, wspd, wx_icon} = data;
+      console.log(temp);
+      console.log(wx_phrase);
+      console.log(wdir_cardinal);
+      console.log(wspd);
+      console.log(wx_icon);
 
-        document.getElementById('tempF').textContent = observation.temp;
-        document.getElementById('weather').textContent = observation.wx_phrase;
-        document.getElementById('city').textContent = observation.obs_name;
-        document.getElementById('winddir').textContent = observation.wdir_cardinal;
-        document.getElementById('windspd').textContent = observation.wspd;
-        document.getElementById('wxicon').textContent = observation.wx_icon;
-    }
-    getWx();
+      document.getElementById('tempF').textContent = observation.temp;
+      document.getElementById('weather').textContent = observation.wx_phrase;
+      document.getElementById('city').textContent = observation.obs_name;
+      document.getElementById('winddir').textContent = observation.wdir_cardinal;
+      document.getElementById('windspd').textContent = observation.wspd;
+      document.getElementById('wxicon').textContent = observation.wx_icon;
+  }
+  getWx();
 </script>
 <script>
- // Start
- const icon_url = ('https://api.weather.com/v1/location/20002:4:US/observations.json?language=en-US&units=m&apiKey=e1f10a1e78da46f5b10a1e78da96f525')
- function weatherIcon() {
-  $.getJSON(icon_url), function(data) {
-  console.log(observation)
-  console.log(wx_icon)
-  var result = wx_icon.sensordatavalues
-  console.log(result);
-  var value = result[0].value
-  var value = Math.round(value)
-  var image = document.getElementById('wxicon').value
-  
-
-  if (wx_icon = 28) {
-    document.getElementById('wxicon').src = mcloudy.png;
-  } 
-  }
-} 
+ getTHEIcon();
+ const iconurl = api_url;
+ console.log(api_url);
+ console.log(wxobservation)
+ function getTHEIcon(wxobservation) {
+  if (wx_icon === 28) {
+    var image = new Image();
+            image.src = '28.png';
+            document.getElementById("wixcon").appendChild(image);
+  }  
+}
 </script>
 <!-- HTML Portion -->
 <!DOCTYPE html>
 <div class="observation">
-  <html>
+<html>
 
-    <body>
-        <div class="side-bar">
-        <div class="search-bar">
-          <form class="search" id="query">
-            <input type="text" id="query" placeholder="Search..." />
-            <button><i class="fas fa-search"></i></button>
-          </form>
-        <div class="citynameintro" >Weather For: </div>
-            <div class="cityname" id="city">City Unavaliable</div>
-            <div class="weather-icon">
-            <img id="wxicon" class="wxicon" src="https://www.ibm.com/docs/en/SSRQLT_suite/images/Not_available.png"></img>
-          </div>
-            <div class="temp" id="tempF">N/A</div><div class="tempu">°F</div>
-            <div class="wxobservation" id="weather">N/A</div>
-            <div class="windintro">The Wind is<div class="winddir" id="winddir">N/A</div><div class="windintro2">at</div><div class="windspd" id="windspd">N/A</div><div class="windintro2">mph</div>
-          </div>
+  <body>
+      <div class="side-bar">
+      <div class="search-bar">
+        <form class="search" id="query">
+          <input type="text" id="query" placeholder="Search..." />
+          <button><i class="fas fa-search"></i></button>
+        </form>
+      <div class="citynameintro" >Weather For: </div>
+          <div class="cityname" id="city">City Unavaliable</div>
+          <div class="weather-icon">
+          <img id="wxicon" class="wxicon" src="https://www.ibm.com/docs/en/SSRQLT_suite/images/Not_available.png"></img>
         </div>
-        <!-- The JavaScript Portion for the 36 Hour Forecast: -->
-        <!-- The Api Url Featured the Json Folder: dayPart, so I had to write a second script attribute right below this one. -->
-      
-          <script>
-            getDailyFcst();
-            const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=20002:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
-            async function getDailyFcst() {
-              const response = await fetch(forecast_url);
-              const forecast1 = await response.json();
-              const {narrative, dayOfWeek, calendarDayTemperatureMax, temperatureMin, daypart} = forecast1;
-              console.log(forecast1);
-              console.log(narrative);
-              console.log(daypart)
-              console.log(temperatureMin);
-              console.log(dayOfWeek);
-              console.log(calendarDayTemperatureMax);
+          <div class="temp" id="tempF">N/A</div><div class="tempu">°F</div>
+          <div class="wxobservation" id="weather">N/A</div>
+          <div class="windintro">The Wind is<div class="winddir" id="winddir">N/A</div><div class="windintro2">at</div><div class="windspd" id="windspd">N/A</div><div class="windintro2">mph</div>
+        </div>
+      </div>
+      <!-- The JavaScript Portion for the 36 Hour Forecast: -->
+      <!-- The Api Url Featured the Json Folder: dayPart, so I had to write a second script attribute right below this one. -->
+    
+        <script>
+          getDailyFcst();
+          const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=58503:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+          async function getDailyFcst() {
+            const response = await fetch(forecast_url);
+            const forecast1 = await response.json();
+            const {narrative, dayOfWeek, calendarDayTemperatureMax, temperatureMin, daypart} = forecast1;
+            console.log(forecast1);
+            console.log(narrative);
+            console.log(daypart)
+            console.log(temperatureMin);
+            console.log(dayOfWeek);
+            console.log(calendarDayTemperatureMax);
 
-              document.getElementById('shorttermname').textContent = daypart[0].daypartName[0];
-              document.getElementById('shortterm').textContent = narrative[0];
-              document.getElementById('hightemp').textContent = calendarDayTemperatureMax[0];
-              document.getElementById('lowtemp').textContent = temperatureMin[0];
-            }
-            getDailyFcst();
+            // Day 1
+            document.getElementById('shorttermname0').textContent = daypart[0].daypartName[0];
+            document.getElementById('shortterm0').textContent = narrative[0];
+            document.getElementById('hightemp0').textContent = calendarDayTemperatureMax[0];
+            document.getElementById('lowtemp0').textContent = temperatureMin[0];
+            // Day 2
+            document.getElementById('shorttermname1').textContent = daypart[0].daypartName[1];
+            document.getElementById('shortterm1').textContent = narrative[1];
+            document.getElementById('hightemp1').textContent = calendarDayTemperatureMax[1];
+            document.getElementById('lowtemp1').textContent = temperatureMin[1];
+          }
+          getDailyFcst();
 
 </script> 
 
- <script>
-  getUvStuff();
-  const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=20002:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
-  async function getUvStuff() {
-    const response = await fetch (uv_url);
-    const weatherstuf = await response.json();
-    const {daypart, uvDescription, windDirectionCardinal, windSpeed} = weatherstuf;
-    console.log(weatherstuf); 
-    console.log(daypart)
-    console.log(uvDescription);
-    console.log(windDirectionCardinal);
-    console.log(windSpeed);
+<script>
+getUvStuff();
+const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=58503:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
+async function getUvStuff() {
+  const response = await fetch (uv_url);
+  const weatherstuf = await response.json();
+  const {daypart, uvDescription, windDirectionCardinal, windSpeed} = weatherstuf;
+  console.log(weatherstuf); 
+  console.log(daypart)
+  console.log(uvDescription);
+  console.log(windDirectionCardinal);
+  console.log(windSpeed);
 
-    document.getElementById('highuv').textContent = daypart[0].uvDescription[1];
-    document.getElementById('avgwinddir').textContent = daypart[0].windDirectionCardinal[1];
-    document.getElementById('avgwind').textContent = daypart[0].windSpeed[1];
+  // Day 1
+  document.getElementById('highuv0').textContent = daypart[0].uvDescription[0];
+  document.getElementById('avgwinddir0').textContent = daypart[0].windDirectionCardinal[0];
+  document.getElementById('avgwind0').textContent = daypart[0].windSpeed[0];
+  // Day 2
+  document.getElementById('highuv1').textContent = daypart[0].uvDescription[1];
+  document.getElementById('avgwinddir1').textContent = daypart[0].windDirectionCardinal[1];
+  document.getElementById('avgwind1').textContent = daypart[0].windSpeed[1];
+}
+getUvStuff();
+ </script>
+</div>
+      <div class="information-container" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color: forestgreen;">
+        <p class="updates">Last Update at: <p class="updates">Dec 31 2023 9:39 AM</p></p>
+        <p class="metricoption">Want Metric Units? Click <a href="metric.html">Here!</a></p>
+        <div class="to-go-forecast container">
+        <h2 class="forecastintro">To go Forecast:</h2>
+        <div class="day1fcst">
+                  <!-- Day 1 -->
+          <h3 class="dayseperator">Day 1 - </h3>
+        <h2 id="shorttermname0"></h2>
+        <h3 id="shortterm0" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
+        <h3 class="otherterminfo">Other Information</h3>
+        <div class="hightempintro" style="color: red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Forecast High Temp:
+        <h3 id="hightemp0">Not Avaliable</h4>
+        </div>  
+          <h3>°F</h3>
+          <h3 class="lowtempintro">Forecast Low Temp:</h3>
+          <h4 id="lowtemp0" style="color: darkblue;" >Not Avaliable</h4>
+          <h3 style="color: darkblue;">°F</h3>
+        </div>
+        <h3 class="windintro">Wind:</h4>
+        <h3 id="avgwind0">Not Avaliable</h4>
+          <h3 class="windunit">mph</h3>
+        <h3 class="winddirintro">Wind Dir:</h4>
+        <h3 id="avgwinddir0">N/A</h4>
+        <h3 class="uvintro">Forecast UV:</h3>
+        <h3 id="highuv0">Not Avaliable</h4>
+        </div>
+        <!-- Day 2 -->
+        <h3 class="dayseperator">Day 2 - </h3>
+      <div class="day2fcst" style="background-color: forestgreen;">
+        <div id="shorttermname1" class="shortterm"></div>
+        <h3 id="shortterm1" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
+        <div class="hightempintro" style="color: red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Forecast High Temp:
+        <h3 id="hightemp1">Not Avaliable</h4>
+        </div>
+          <h3>°F</h3>
+          <h3 class="lowtempintro">Forecast Low Temp:</h3>
+          <h4 id="lowtemp1" class="lowtemp" style="color: darkblue;"> Not Avaliable</h4>
+          <h3 style="color: darkblue;">°F</h3>
+        <h3 class="windintro">Wind:</h4>
+        <h3 id="avgwind1">Not Avaliable</h4>
+          <h3 class="windunit">mph</h3>
+        <h3 class="winddirintro">Wind Dir:</h4>
+        <h3 id="avgwinddir1">N/A</h4>
+        <h3 class="uvintro">Forecast UV:</h3>
+        <h3 id="highuv1">Not Avaliable</h4>
+        </div>
+  </div>   
+</body>
+</html>
+</div>
+<!-- CSS Portion -->  
+<style>
+  .observation {
+      background-color: #2196F3;
+      width: 100%;
+      height: fit-content;
   }
-  getUvStuff();
-   </script>
-</div>
-        <div class="information-container" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color: forestgreen;">
-          <p class="updates">Last Update at: <p class="updates">Dec 28 2023 9:13 AM</p></p>
-          <p class="metricoption">Want Metric Units? Click <a href="metric.html">Here!</a></p>
-          <div class="to-go-forecast container">
-          <h2 class="forecastintro">To go Forecast:</h2>
-          <h2 id="shorttermname"></h2>
-          <h3 id="shortterm" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
-          <h3 class="otherterminfo">Other Information</h3>
-          <div class="hightempintro" style="color: red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Forecast High Temp:
-          <h3 id="hightemp">Not Avaliable</h4>
-            <h3>°F</h3>
-          </div>
-            <h3 class="lowtempintro">Forecast Low Temp:</h3>
-            <h4 id="lowtemp" style="color: darkblue;" >Not Avaliable</h4>
-            <h3 style="color: darkblue;">°F</h3>
-          <h3 class="windintro">Wind:</h4>
-          <h3 id="avgwind">Not Avaliable</h4>
-            <h3 class="windunit">mph</h3>
-          <h3 class="winddirintro">Wind Dir:</h4>
-          <h3 id="avgwinddir">N/A</h4>
-          <h3 class="uvintro">Forecast UV:</h3>
-          <h3 id="highuv">Not Avaliable</h4>
-          </div>
-    </div> 
-  </body>
- </html>
-</div>
-  <!-- CSS Portion -->  
-  <style>
-    .observation {
-        background-color: #2196F3;
-        width: 100%;
-        height: fit-content;
-    }
-    .side-bar {
-        background-color: gray;
-        width: 100%;
-        height: 100%;
-    }
-    .temp {
-     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-     font-size: 52px;
-     padding-top: 99px;
-     padding-left: 650px;
-    }
-    .tempu {
-     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-     font-size: 19px;
-     padding-bottom: 55px;
-     padding-left: 694px;
-    }
-    .wxobservation {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        padding-left: 645px;
-        padding-bottom: 25px;
-        font-size: 50px;
-    }
-    .wxicon {
-        width: 10%;
-        padding-left: 650px;
-        padding-top: 30px;
-    }
-    .citymameintro {
+  .side-bar {
+      background-color: gray;
+      width: 100%;
+      height: 100%;
+  }
+  .temp {
+   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   font-size: 52px;
+   padding-top: 99px;
+   padding-left: 650px;
+  }
+  .tempu {
+   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   font-size: 19px;
+   padding-bottom: 55px;
+   padding-left: 694px;
+  }
+  .wxobservation {
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      padding-left: 645px;
+      padding-bottom: 25px;
+      font-size: 50px;
+  }
+  .wxicon {
+      width: 10%;
+      padding-left: 650px;
+      padding-top: 30px;
+  }
+  .citymameintro {
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  .cityname {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 36px;
+  }
+  .windintro {
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, bold;
+      width: fit-content;
+  }
+  .winddir {
+      font-family:'Geneva', Bold;
+      padding-left: 180px;
+      padding-top: -25px;
       font-size: 25px;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
-    .cityname {
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-      font-size: 36px;
-    }
-    .windintro {
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, bold;
-        width: fit-content;
-    }
-    .winddir {
-        font-family:'Geneva', Bold;
-        padding-left: 180px;
-        padding-top: -25px;
-        font-size: 25px;
-    }
-    .windintro2 {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        padding-left: 180px;
-    }
-    .windspd {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        padding-left: 180px;
-        font-size: 25px;
-    }
-    .information-container {
-     background-color: aqua;
-     width: 100%;
-     height: 1000px;
-    }
-    .forecastintro {
-      font-size: 23px;
-      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
-    .shortterm {
-      font-size: 17px;
+  }
+  .windintro2 {
       font-family: Verdana, Geneva, Tahoma, sans-serif;
-    }
-    .updates {
+      padding-left: 180px;
+  }
+  .windspd {
       font-family: Verdana, Geneva, Tahoma, sans-serif;
-      font-size: 14px;
-    }
-    .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+      padding-left: 180px;
+      font-size: 25px;
+  }
+  .information-container {
+   background-color: aqua;
+   width: 100%;
+   height: 1000px;
+  }
+  .forecastintro {
+    font-size: 23px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  .dayseperator {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+  }
+  .shortterm {
+    font-size: 17px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .lowtemp {
+    color: darkblue;
+  }
+  .shortterm {
+    font-size: 17px; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .updates {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+  }
+  .topnav a:hover {
+background-color: #ddd;
+color: black;
 }
 
 .topnav a.active {
-  background-color: #2196F3;
-  color: white;
+background-color: #2196F3;
+color: white;
 }
 
 .topnav .search-container {
-  float: right;
+float: right;
 }
 
 .topnav input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none;
+padding: 6px;
+margin-top: 8px;
+font-size: 17px;
+border: none;
 }
 
 .topnav .search-container button {
-  float: right;
-  padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
+float: right;
+padding: 6px 10px;
+margin-top: 8px;
+margin-right: 16px;
+background: #ddd;
+font-size: 17px;
+border: none;
+cursor: pointer;
 }
 
 .topnav .search-container button:hover {
-  background: #ccc;
+background: #ccc;
 }
 
 @media screen and (max-width: 600px) {
-  .topnav .search-container {
-    float: none;
-  }
-  .topnav a, .topnav input[type=text], .topnav .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;  
-  }
+.topnav .search-container {
+  float: none;
 }
-  </style>
+.topnav a, .topnav input[type=text], .topnav .search-container button {
+  float: none;
+  display: block;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+}
+.topnav input[type=text] {
+  border: 1px solid #ccc;  
+}
+}
+</style>
