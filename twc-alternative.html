@@ -76,12 +76,12 @@
 
             // Day 1
             document.getElementById('shorttermname0').textContent = daypart[0].daypartName[0];
-            document.getElementById('shortterm0').textContent = narrative[0];
+            document.getElementById('shortterm0').textContent = daypart[0].narrative[0];
             document.getElementById('hightemp0').textContent = calendarDayTemperatureMax[0];
             document.getElementById('lowtemp0').textContent = temperatureMin[0];
             // Day 2
             document.getElementById('shorttermname1').textContent = daypart[0].daypartName[1];
-            document.getElementById('shortterm1').textContent = narrative[1];
+            document.getElementById('shortterm1').textContent = daypart[0].narrative[1];
             document.getElementById('hightemp1').textContent = calendarDayTemperatureMax[1];
             document.getElementById('lowtemp1').textContent = temperatureMin[1];
           }
@@ -116,7 +116,7 @@ getUvStuff();
 </div>
       <div class="information-container" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color: forestgreen;">
         <p class="updates">Last Update at: <p class="updates">Dec 31 2023 9:39 AM</p></p>
-        <p class="metricoption">Want Metric Units? Click <a href="metric.html">Here!</a></p>
+        <p class="metricoption">Want Imperial Units? Click <a href="alternative.html">Here!</a></p>
         <div class="to-go-forecast container">
         <h2 class="forecastintro">To go Forecast:</h2>
         <div class="day1fcst">
@@ -145,6 +145,7 @@ getUvStuff();
         <h3 class="dayseperator">Day 2 - </h3>
       <div class="day2fcst" style="background-color: forestgreen;">
         <div id="shorttermname1" class="shortterm"></div>
+        <h3 class="note">Note: The Forecast Here is for tommorow so you can plan your day ahead -Jesse</h3>
         <h3 id="shortterm1" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
         <div class="hightempintro" style="color: red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Forecast High Temp:
         <h3 id="hightemp1">Not Avaliable</h4>
@@ -161,6 +162,7 @@ getUvStuff();
         <h3 class="uvintro">Forecast UV:</h3>
         <h3 id="highuv1">Not Avaliable</h4>
         </div>
+        <p class="credit">This Script was made by Jesse Hasty. If you wanna know more about him, click <a href="about.html">Here</a></p>
   </div>   
 </body>
 </html>
@@ -254,6 +256,9 @@ getUvStuff();
   .updates {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 14px;
+  }
+  .credit {
+    font-family: Arial, Helvetica, sans-serif;
   }
   .topnav a:hover {
 background-color: #ddd;
