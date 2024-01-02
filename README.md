@@ -20,4 +20,4 @@ For Large TWC Script:
   <p>Working Forecasts: ✅</p>
   <p>Working Search Query: ❌</p>
   <p>Working Icons: ❌</p>
-  <p>Working Time Function: 🟠</p>
+  <p>Working Time Function: ✅</p>
