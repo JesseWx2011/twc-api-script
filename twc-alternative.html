@@ -1,9 +1,21 @@
-
-
+<!-- JavaScript Portion for Logging the latitude and longitude -->
+<script>
+  if ('geolocation' in navigator) {
+      console.log('Geolocation Avaliable! Details:');
+      navigator.geolocation.getCurrentPosition(function(position) {
+          console.log(position.coords.latitude);
+          console.log(position.coords.longitude);
+  }); 
+  
+  }
+else {
+      console.log('Something went wrong :(');
+  }
+</script>
 <!-- JavaScript Portion for the Current Conditions -->
 <script>
   getWx();
-   const api_url = 'https://api.weather.com/v1/location/20002:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+   const api_url = 'https://api.weather.com/v1/location/58503:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
   async function getWx() {   
       const response = await fetch(api_url);
       const data = await response.json();
@@ -19,15 +31,15 @@
       document.getElementById('city').textContent = observation.obs_name;
       document.getElementById('winddir').textContent = observation.wdir_cardinal;
       document.getElementById('windspd').textContent = observation.wspd;
-      document.getElementById('wxicon').textContent = observation.wx_icon;
+      document.getElementById('wxicon').textContent = observation.wx_icon; 
   }
   getWx();
+  setInterval(getWx, 3000)
 </script>
 <script>
  getTHEIcon();
  const iconurl = api_url;
  console.log(api_url);
- console.log(wxobservation)
  function getTHEIcon(wxobservation) {
   if (wx_icon === 28) {
     var image = new Image();
@@ -51,7 +63,7 @@
       <div class="citynameintro" >Weather For: </div>
           <div class="cityname" id="city">City Unavaliable</div>
           <div class="weather-icon">
-          <img id="wxicon" class="wxicon" src="https://www.ibm.com/docs/en/SSRQLT_suite/images/Not_available.png"></img>
+          <img id="wx_icon" class="wxicon" src="${wx_icon}"></img>
         </div>
           <div class="temp" id="tempF">N/A</div><div class="tempu">°F</div>
           <div class="wxobservation" id="weather">N/A</div>
@@ -63,7 +75,7 @@
     
         <script>
           getDailyFcst();
-          const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=20002:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+          const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=58503:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
           async function getDailyFcst() {
             const response = await fetch(forecast_url);
             const forecast1 = await response.json();
@@ -92,7 +104,7 @@
 
 <script>
 getUvStuff();
-const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=20002:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
+const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=58503:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
 async function getUvStuff() {
   const response = await fetch (uv_url);
   const weatherstuf = await response.json();
@@ -111,13 +123,20 @@ async function getUvStuff() {
   document.getElementById('highuv1').textContent = daypart[0].uvDescription[1];
   document.getElementById('avgwinddir1').textContent = daypart[0].windDirectionCardinal[1];
   document.getElementById('avgwind1').textContent = daypart[0].windSpeed[1];
+  const updates = 
+  new Date().toLocaleString().replace(',','')
+  console.log(new Date().toLocaleString().replace(',',''));
+
+  document.getElementById('updatetime').textContent = updates;
 }
 getUvStuff();
+setInterval(getUvStuff, 1000)
+
  </script>
 </div>
       <div class="information-container" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color: forestgreen;">
         <p class="updates">Last Update at: <p class="updates" id="updatetime">Dec 31 2023 9:39 AM</p></p>
-        <p class="metricoption">Want Imperial Units? Click <a href="metric.html">Here!</a></p>
+        <p class="metricoption">Want Metric Units? Click <a href="metric.html">Here!</a></p>
         <div class="to-go-forecast container">
         <h2 class="forecastintro">To go Forecast:</h2>
         <div class="day1fcst">
@@ -146,21 +165,21 @@ getUvStuff();
         <h3 class="dayseperator">Day 2 - </h3>
       <div class="day2fcst" style="background-color: forestgreen;">
         <div id="shorttermname1" class="shortterm"></div>
-        <h3 class="note">Note: The Forecast Here is for tommorow so you can plan your day ahead -Jesse</h3>
         <h3 id="shortterm1" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
-        <div class="hightempintro" style="color: red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Forecast High Temp:
+          <h3 class="note">Note: The Details Here are for tommorow so you can plan your day ahead -Jesse</h3>
+        <div class="hightempintro" style="color: red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Tommorow's High Temp:
         <h3 id="hightemp1">Not Avaliable</h4>
         </div>
           <h3>°F</h3>
-          <h3 class="lowtempintro">Forecast Low Temp:</h3>
+          <h3 class="lowtempintro">Tommorow's Low Temp:</h3>
           <h4 id="lowtemp1" class="lowtemp" style="color: darkblue;"> Not Avaliable</h4>
           <h3 style="color: darkblue;">°F</h3>
-        <h3 class="windintro">Wind:</h4>
+        <h3 class="windintro">Tommorow's Wind:</h4>
         <h3 id="avgwind1">Not Avaliable</h4>
           <h3 class="windunit">mph</h3>
-        <h3 class="winddirintro">Wind Dir:</h4>
+        <h3 class="winddirintro">Tommorow's Wind Dir:</h4>
         <h3 id="avgwinddir1">N/A</h4>
-        <h3 class="uvintro">Forecast UV:</h3>
+        <h3 class="uvintro">Tommorow's Forecast UV:</h3>
         <h3 id="highuv1">Not Avaliable</h4>
         </div>
         <p class="credit">This Script was made by Jesse Hasty. If you wanna know more about him, click <a href="about.html">Here</a></p>
@@ -207,11 +226,6 @@ getUvStuff();
 </html>
 </div>
 <script>
-  const updates = 
-  new Date().toLocaleString().replace(',','')
-  console.log(new Date().toLocaleString().replace(',',''));
-
-  document.getElementById('updatetime').textContent = updates;
 </script>
 
 <!-- CSS Portion -->  
