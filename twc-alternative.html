@@ -1,25 +1,28 @@
 <!-- JavaScript Portion for Logging the latitude and longitude -->
 <script>
-  if ('geolocation' in navigator) {
-      console.log('Geolocation Avaliable! Details:');
-      navigator.geolocation.getCurrentPosition(function(position) {
-          console.log(position.coords.latitude);
-          console.log(position.coords.longitude);
-  }); 
-  
-  }
-else {
-      console.log('Something went wrong :(');
-  }
+if ('geolocation' in navigator) {
+  console.log('Geolocation Details:'); 
+   navigator.geolocation.getCurrentPosition(function(position) {
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
+    console.log(position)
+    console.log(coords)
+ const latitude = `${position.coords.latitude}`
+ const longitude = (position.coords.longitude)
+   });
+} else {
+  console.log('Geolocation unavaliable.')
+}
 </script>
 <!-- JavaScript Portion for the Current Conditions -->
 <script>
-  getWx();
-   const api_url = 'https://api.weather.com/v1/location/58503:4:US/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+  
+            getWx();
+const api_url = `https://api.weather.com/v1/geocode/38.56/-73.59/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525`;
   async function getWx() {   
       const response = await fetch(api_url);
       const data = await response.json();
-      const {observation, obs_name, temp, wx_phrase, wdir_cardinal, wspd, wx_icon} = data;
+      const {observation, obs_name, temp, wx_phrase, wdir_cardinal, wspd, wx_icon, latitude, longitude} = data;
       console.log(temp);
       console.log(wx_phrase);
       console.log(wdir_cardinal);
@@ -31,28 +34,15 @@ else {
       document.getElementById('city').textContent = observation.obs_name;
       document.getElementById('winddir').textContent = observation.wdir_cardinal;
       document.getElementById('windspd').textContent = observation.wspd;
-      document.getElementById('wxicon').textContent = observation.wx_icon; 
+      document.getElementById('wxicon').textContent = observation.wx_icon;
+      weathericons.innerHTML = `<img src="${observation.wx_icon}.png"></img>`;
   }
   getWx();
-  setInterval(getWx, 3000)
-</script>
-<script>
- getTHEIcon();
- const iconurl = api_url;
- console.log(api_url);
- function getTHEIcon(wxobservation) {
-  if (wx_icon === 28) {
-    var image = new Image();
-            image.src = '28.png';
-            document.getElementById("wixcon").appendChild(image);
-  }  
-}
 </script>
 <!-- HTML Portion -->
 <!DOCTYPE html>
 <div class="observation">
 <html>
-
   <body>
       <div class="side-bar">
       <div class="search-bar">
@@ -60,10 +50,14 @@ else {
           <input type="text" id="query" placeholder="Search..." />
           <button><i class="fas fa-search"></i></button>
         </form>
+        </div>
+        </div>
+        <div class="side-bar">
       <div class="citynameintro" >Weather For: </div>
           <div class="cityname" id="city">City Unavaliable</div>
-          <div class="weather-icon">
-          <img id="wx_icon" class="wxicon" src="${wx_icon}"></img>
+          <div id="weathericons" align="center">
+            <img id="wxicon"></img>
+          </div>
         </div>
           <div class="temp" id="tempF">N/A</div><div class="tempu">°F</div>
           <div class="wxobservation" id="weather">N/A</div>
@@ -75,7 +69,7 @@ else {
     
         <script>
           getDailyFcst();
-          const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=58503:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+          const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?geocode=33.74,-84.39&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
           async function getDailyFcst() {
             const response = await fetch(forecast_url);
             const forecast1 = await response.json();
@@ -99,12 +93,13 @@ else {
             document.getElementById('lowtemp1').textContent = temperatureMin[1];
           }
           getDailyFcst();
+          getGeoLocation();
 
 </script> 
 
 <script>
 getUvStuff();
-const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?postalKey=58503:US&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
+const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?geocode=33.74,-84.39&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
 async function getUvStuff() {
   const response = await fetch (uv_url);
   const weatherstuf = await response.json();
@@ -130,7 +125,7 @@ async function getUvStuff() {
   document.getElementById('updatetime').textContent = updates;
 }
 getUvStuff();
-setInterval(getUvStuff, 1000)
+setInterval(getUvStuff, 30000)
 
  </script>
 </div>
@@ -374,3 +369,4 @@ background: #ccc;
 }
 }
 </style>
+
