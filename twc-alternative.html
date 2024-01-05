@@ -1,3 +1,4 @@
+
 <!-- JavaScript Portion for Logging the latitude and longitude -->
 <script>
 if ('geolocation' in navigator) {
@@ -16,12 +17,11 @@ if ('geolocation' in navigator) {
 </script>
 <!-- JavaScript Portion for the Current Conditions -->
 <script>
-  
-            getWx();
-const api_url = `https://api.weather.com/v1/geocode/38.56/-73.59/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525`;
+  getWx();
+const api_url = `https://api.weather.com/v1/geocode/39.3943696/-94.6593363/observations.json?language=en-US&units=e&apiKey=e1f10a1e78da46f5b10a1e78da96f525`;
   async function getWx() {   
       const response = await fetch(api_url);
-      const data = await response.json();
+      const data = await response.json(); 
       const {observation, obs_name, temp, wx_phrase, wdir_cardinal, wspd, wx_icon, latitude, longitude} = data;
       console.log(temp);
       console.log(wx_phrase);
@@ -36,9 +36,10 @@ const api_url = `https://api.weather.com/v1/geocode/38.56/-73.59/observations.js
       document.getElementById('windspd').textContent = observation.wspd;
       document.getElementById('wxicon').textContent = observation.wx_icon;
       weathericons.innerHTML = `<img src="${observation.wx_icon}.png"></img>`;
+      windintro.innerHTML = `The Wind is ${observation.wdir_cardinal} at ${observation.wspd} mph`;
   }
   getWx();
-</script>
+</script> 
 <!-- HTML Portion -->
 <!DOCTYPE html>
 <div class="observation">
@@ -46,12 +47,15 @@ const api_url = `https://api.weather.com/v1/geocode/38.56/-73.59/observations.js
   <body>
       <div class="side-bar">
       <div class="search-bar">
-        <form class="search" id="query">
-          <input type="text" id="query" placeholder="Search..." />
-          <button><i class="fas fa-search"></i></button>
+        <form class="weathersearch">
+          <input type="text" class="inputtedCity" placeholder="Example: 33.58/-76.34">
+          <button type="submit">Search!</button>
         </form>
         </div>
-        </div>
+ </div> 
+   <div class="alertname" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Alerts unavaliable ;(</div>
+   <div id="alertname">
+   </div>
         <div class="side-bar">
       <div class="citynameintro" >Weather For: </div>
           <div class="cityname" id="city">City Unavaliable</div>
@@ -61,15 +65,33 @@ const api_url = `https://api.weather.com/v1/geocode/38.56/-73.59/observations.js
         </div>
           <div class="temp" id="tempF">N/A</div><div class="tempu">°F</div>
           <div class="wxobservation" id="weather">N/A</div>
-          <div class="windintro">The Wind is<div class="winddir" id="winddir">N/A</div><div class="windintro2">at</div><div class="windspd" id="windspd">N/A</div><div class="windintro2">mph</div>
-        </div>
+          <div class="windintro" id="windintro">The Wind is<div class="winddir" id="winddir">N/A</div><div class="windintro2">at</div><div class="windspd" id="windspd">N/A</div><div class="windintro2">mph</div></div>
       </div>
+      <!-- Script for the Weather Alerts/Advisories -->
+      <script>
+         getAlert();
+const alert_url = `https://api.weather.com/v3/alerts/headlines?geocode=39.3943696,-94.6593363&format=json&language=en-US&next=0&apiKey=e1f10a1e78da46f5b10a1e78da96f525`;
+async function getAlert() {      
+const response = await fetch(alert_url);
+      const weatheralert = await response.json();
+      const {alert_url, metadata, alerts, urgency, certainty, areaId, areaName, headlineText, source} = weatheralert;
+      console.log(alert_url);
+      console.log(weatheralert)
+      console.log(metadata)
+      console.log(alerts)
+
+      document.getElementById('alertname').textContent = alerts.headlineText[0];
+
+      alertname.innerHTML = `Alert Type: ${alerts.headlineText[0]}`
+}
+     getAlert();
+      </script>
       <!-- The JavaScript Portion for the 36 Hour Forecast: -->
       <!-- The Api Url Featured the Json Folder: dayPart, so I had to write a second script attribute right below this one. -->
     
         <script>
           getDailyFcst();
-          const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?geocode=33.74,-84.39&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+          const forecast_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?geocode=39.3943696,-94.6593363&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
           async function getDailyFcst() {
             const response = await fetch(forecast_url);
             const forecast1 = await response.json();
@@ -99,25 +121,34 @@ const api_url = `https://api.weather.com/v1/geocode/38.56/-73.59/observations.js
 
 <script>
 getUvStuff();
-const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?geocode=33.74,-84.39&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
+const uv_url = 'https://api.weather.com/v3/wx/forecast/daily/7day?geocode=39.3943696,-94.6593363&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525';
 async function getUvStuff() {
   const response = await fetch (uv_url);
   const weatherstuf = await response.json();
-  const {daypart, uvDescription, windDirectionCardinal, windSpeed} = weatherstuf;
+  const {daypart, uvDescription, windDirectionCardinal, windSpeed, qpfSnow, qualifierPhrase} = weatherstuf;
   console.log(weatherstuf); 
   console.log(daypart)
   console.log(uvDescription);
   console.log(windDirectionCardinal);
   console.log(windSpeed);
+  console.log(qpfSnow);
+  console.log(qualifierPhrase)
 
   // Day 1
   document.getElementById('highuv0').textContent = daypart[0].uvDescription[0];
   document.getElementById('avgwinddir0').textContent = daypart[0].windDirectionCardinal[0];
   document.getElementById('avgwind0').textContent = daypart[0].windSpeed[0];
-  // Day 2
+  document.getElementById('snow0').textContent = qpfSnow[0]
+  document.getElementById('notableinfo0').textContent = daypart[0].qualifierPhrase[0]
+    // Day 2
   document.getElementById('highuv1').textContent = daypart[0].uvDescription[1];
   document.getElementById('avgwinddir1').textContent = daypart[0].windDirectionCardinal[1];
   document.getElementById('avgwind1').textContent = daypart[0].windSpeed[1];
+  document.getElementById('snow1').textContent = qpfSnow[0];
+  snow0.innerHTML = `${qpfSnow[0]} in.`
+  snow1.innerHTML = `${qpfSnow[1]} in.`
+
+  notableinfo0.innerHTML =  `${daypart[0].qualifierPhrase[0]} (Null Stands for None)`
   const updates = 
   new Date().toLocaleString().replace(',','')
   console.log(new Date().toLocaleString().replace(',',''));
@@ -130,7 +161,7 @@ setInterval(getUvStuff, 30000)
  </script>
 </div>
       <div class="information-container" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; background-color: forestgreen;">
-        <p class="updates">Last Update at: <p class="updates" id="updatetime">Dec 31 2023 9:39 AM</p></p>
+        <p class="updates">Last Update at: <p class="updates" id="updatetime">12/31/1969 11:59 PM</p></p>
         <p class="metricoption">Want Metric Units? Click <a href="metric.html">Here!</a></p>
         <div class="to-go-forecast container">
         <h2 class="forecastintro">To go Forecast:</h2>
@@ -155,12 +186,17 @@ setInterval(getUvStuff, 30000)
         <h3 id="avgwinddir0">N/A</h4>
         <h3 class="uvintro">Forecast UV:</h3>
         <h3 id="highuv0">Not Avaliable</h4>
-        </div>
+          <h3 class="snowaccumintro">Snow Accumulation:</h4>
+            <div style="background-color: forestgreen;">
+            <h3 id="snow0">Not Avaliable</h4>
+          <h3 class="noteinfo">Notable Info</h4>
+            <h3 id="notableinfo0">Not Avaliable</h3>
         <!-- Day 2 -->
         <h3 class="dayseperator">Day 2 - </h3>
+      </div>
       <div class="day2fcst" style="background-color: forestgreen;">
         <div id="shorttermname1" class="shortterm"></div>
-        <h3 id="shortterm1" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
+          <h3 id="shortterm1" style="font-size: 17px; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
           <h3 class="note">Note: The Details Here are for tommorow so you can plan your day ahead -Jesse</h3>
         <div class="hightempintro" style="color: red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Tommorow's High Temp:
         <h3 id="hightemp1">Not Avaliable</h4>
@@ -176,9 +212,12 @@ setInterval(getUvStuff, 30000)
         <h3 id="avgwinddir1">N/A</h4>
         <h3 class="uvintro">Tommorow's Forecast UV:</h3>
         <h3 id="highuv1">Not Avaliable</h4>
+          <h3 class="snowaccumintro">Tommorow's Snow Accumulation:</h4>
+            <h3 id="snow1">Not Avaliable</h4>
         </div>
-        <p class="credit">This Script was made by Jesse Hasty. If you wanna know more about him, click <a href="about.html">Here</a></p>
+        <p class="credit">This Script was made by Jesse Hasty. If you want to know more about him, click <a href="about.html">Here</a></p>
   </div>   
+</div>
 <!-- Code injected by live-server -->
 <script>
 	// <![CDATA[  <-- For SVG support
@@ -269,6 +308,7 @@ setInterval(getUvStuff, 30000)
   .windintro {
       font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, bold;
       width: fit-content;
+      font-size: 19px;
   }
   .winddir {
       font-family:'Geneva', Bold;
