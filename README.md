@@ -7,7 +7,7 @@
  🟠 = Nearly There
  ✅ = Complete
  
-For Small TWC Script:
+For Small TWC Script * May be discontinued* :
   <p>Full Design: ❌</p>
   <p>Working Forecasts: ✅</p>   
   <p>Working Search Query: ❌</p>
